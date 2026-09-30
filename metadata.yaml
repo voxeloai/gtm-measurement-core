@@ -1,0 +1,9 @@
+homepage: "https://voxelo.ai"
+documentation: "https://github.com/voxeloai/gtm-measurement-core#readme"
+versions:
+  - sha: REPLACE_WITH_COMMIT_SHA
+    changeNotes: |
+      Initial release of the Voxelo Measurement core template.
+      Install on All Pages with your Measurement ID.
+      Maps purchase and add_to_cart from dataLayer without a second helper tag.
+      Loads https://app.voxelo.ai/ea/measurement-core.js
