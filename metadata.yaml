@@ -1,7 +1,7 @@
 homepage: "https://voxelo.ai"
 documentation: "https://github.com/voxeloai/gtm-measurement-core#readme"
 versions:
-  - sha: 91be412bdca4601f94b8b08ad59f1aef3e2617d5
+  - sha: 4429c6a67e3b435a5f881186a25657ce70b7a6a4
     changeNotes: |
       Initial release of the Voxelo Measurement core template.
       Install on All Pages with your Measurement ID.
