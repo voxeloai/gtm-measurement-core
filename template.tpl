@@ -104,12 +104,15 @@ ___WEB_PERMISSIONS___
       "param": [
         {
           "key": "urls",
-          "value": [
-            {
-              "type": 1,
-              "string": "https://app.voxelo.ai/ea/measurement-core.js"
-            }
-          ]
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 1,
+                "string": "https://app.voxelo.ai/ea/measurement-core.js"
+              }
+            ]
+          }
         }
       ]
     },
@@ -127,125 +130,128 @@ ___WEB_PERMISSIONS___
       "param": [
         {
           "key": "keys",
-          "value": [
-            {
-              "type": 3,
-              "mapKey": [
-                {
-                  "type": 1,
-                  "string": "key"
-                },
-                {
-                  "type": 1,
-                  "string": "read"
-                },
-                {
-                  "type": 1,
-                  "string": "write"
-                },
-                {
-                  "type": 1,
-                  "string": "execute"
-                }
-              ],
-              "mapValue": [
-                {
-                  "type": 1,
-                  "string": "__voxeloMeasurementBootstrap"
-                },
-                {
-                  "type": 8,
-                  "boolean": true
-                },
-                {
-                  "type": 8,
-                  "boolean": true
-                },
-                {
-                  "type": 8,
-                  "boolean": false
-                }
-              ]
-            },
-            {
-              "type": 3,
-              "mapKey": [
-                {
-                  "type": 1,
-                  "string": "key"
-                },
-                {
-                  "type": 1,
-                  "string": "read"
-                },
-                {
-                  "type": 1,
-                  "string": "write"
-                },
-                {
-                  "type": 1,
-                  "string": "execute"
-                }
-              ],
-              "mapValue": [
-                {
-                  "type": 1,
-                  "string": "__voxeloConversionQueue"
-                },
-                {
-                  "type": 8,
-                  "boolean": true
-                },
-                {
-                  "type": 8,
-                  "boolean": true
-                },
-                {
-                  "type": 8,
-                  "boolean": false
-                }
-              ]
-            },
-            {
-              "type": 3,
-              "mapKey": [
-                {
-                  "type": 1,
-                  "string": "key"
-                },
-                {
-                  "type": 1,
-                  "string": "read"
-                },
-                {
-                  "type": 1,
-                  "string": "write"
-                },
-                {
-                  "type": 1,
-                  "string": "execute"
-                }
-              ],
-              "mapValue": [
-                {
-                  "type": 1,
-                  "string": "__voxeloPushConversion"
-                },
-                {
-                  "type": 8,
-                  "boolean": true
-                },
-                {
-                  "type": 8,
-                  "boolean": true
-                },
-                {
-                  "type": 8,
-                  "boolean": true
-                }
-              ]
-            }
-          ]
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "__voxeloMeasurementBootstrap"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "__voxeloConversionQueue"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "__voxeloPushConversion"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     },
@@ -296,7 +302,7 @@ Voxelo Measurement core for the Google Tag Manager Community Gallery.
 
 Setup:
 1. Add this tag from the Community Gallery.
-2. Enter your Measurement ID from Voxelo Convert settings (vxm_live_…).
+2. Enter your Measurement ID from Voxelo Convert settings (vxm_live_...).
 3. Trigger: All Pages.
 4. Keep your existing GA4 / ecommerce tags pushing purchase and add_to_cart to
    dataLayer. No second Voxelo helper tag is required.
@@ -307,21 +313,3 @@ version adds a different script host, GTM will ask you to re-accept permissions.
 
 Plain-script install is also available from Voxelo Convert settings if you do
 not use GTM.
-
-
-___HISTORY_CONSENT___
-
-{
-  "consentStatus": "CONSENT GRANTED",
-  "consentRecords": [
-    {
-      "consentStatuses": {
-        "ANALYTICS_STORAGE": "CONSENT GRANTED",
-        "AD_STORAGE": "CONSENT GRANTED"
-      },
-      "consentPurpose": "Template Author Consent",
-      "consentTime": "2026-09-28T15:00:00.000Z",
-      "consentUser": "voxelo"
-    }
-  ]
-}
