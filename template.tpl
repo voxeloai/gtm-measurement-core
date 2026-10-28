@@ -45,7 +45,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "REGEX",
         "args": [
-          "^vxm_live_[A-Za-z0-9]+$"
+          "^vxm_live_[A-Za-z0-9_-]+$"
         ]
       }
     ],
@@ -62,6 +62,8 @@ const copyFromWindow = require('copyFromWindow');
 const createQueue = require('createQueue');
 const makeString = require('makeString');
 const getType = require('getType');
+const isConsentGranted = require('isConsentGranted');
+const addConsentListener = require('addConsentListener');
 
 const measurementId = makeString(data.measurementId || '').trim();
 // Day-one Gallery inject permission: must stay in lockstep with ___WEB_PERMISSIONS___.
@@ -72,6 +74,16 @@ if (!measurementId) {
   data.gtmOnFailure();
   return;
 }
+
+// The merchant CMP must initialize defaults on Consent Initialization.
+// Google treats unset native consent as granted. Never use "Always fire".
+function publishConsent() {
+  const granted = isConsentGranted('ad_storage') && isConsentGranted('analytics_storage');
+  setInWindow('__voxeloGtmConsent', granted ? 'granted' : 'denied', true);
+}
+publishConsent();
+addConsentListener('ad_storage', publishConsent);
+addConsentListener('analytics_storage', publishConsent);
 
 const bootstrap = {
   measurementId: measurementId,
@@ -107,10 +119,10 @@ ___WEB_PERMISSIONS___
           "value": {
             "type": 2,
             "listItem": [
-              {
-                "type": 1,
-                "string": "https://app.voxelo.ai/ea/measurement-core.js"
-              }
+            {
+              "type": 1,
+              "string": "https://app.voxelo.ai/ea/measurement-core.js"
+            }
             ]
           }
         }
@@ -133,123 +145,246 @@ ___WEB_PERMISSIONS___
           "value": {
             "type": 2,
             "listItem": [
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "key"
-                  },
-                  {
-                    "type": 1,
-                    "string": "read"
-                  },
-                  {
-                    "type": 1,
-                    "string": "write"
-                  },
-                  {
-                    "type": 1,
-                    "string": "execute"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "__voxeloMeasurementBootstrap"
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": false
-                  }
-                ]
-              },
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "key"
-                  },
-                  {
-                    "type": 1,
-                    "string": "read"
-                  },
-                  {
-                    "type": 1,
-                    "string": "write"
-                  },
-                  {
-                    "type": 1,
-                    "string": "execute"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "__voxeloConversionQueue"
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": false
-                  }
-                ]
-              },
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "key"
-                  },
-                  {
-                    "type": 1,
-                    "string": "read"
-                  },
-                  {
-                    "type": 1,
-                    "string": "write"
-                  },
-                  {
-                    "type": 1,
-                    "string": "execute"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "__voxeloPushConversion"
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  }
-                ]
-              }
+            {
+              "type": 3,
+              "mapKey": [
+                {
+                  "type": 1,
+                  "string": "key"
+                },
+                {
+                  "type": 1,
+                  "string": "read"
+                },
+                {
+                  "type": 1,
+                  "string": "write"
+                },
+                {
+                  "type": 1,
+                  "string": "execute"
+                }
+              ],
+              "mapValue": [
+                {
+                  "type": 1,
+                  "string": "__voxeloMeasurementBootstrap"
+                },
+                {
+                  "type": 8,
+                  "boolean": true
+                },
+                {
+                  "type": 8,
+                  "boolean": true
+                },
+                {
+                  "type": 8,
+                  "boolean": false
+                }
+              ]
+            },
+            {
+              "type": 3,
+              "mapKey": [
+                {
+                  "type": 1,
+                  "string": "key"
+                },
+                {
+                  "type": 1,
+                  "string": "read"
+                },
+                {
+                  "type": 1,
+                  "string": "write"
+                },
+                {
+                  "type": 1,
+                  "string": "execute"
+                }
+              ],
+              "mapValue": [
+                {
+                  "type": 1,
+                  "string": "__voxeloConversionQueue"
+                },
+                {
+                  "type": 8,
+                  "boolean": true
+                },
+                {
+                  "type": 8,
+                  "boolean": true
+                },
+                {
+                  "type": 8,
+                  "boolean": false
+                }
+              ]
+            },
+            {
+              "type": 3,
+              "mapKey": [
+                {
+                  "type": 1,
+                  "string": "key"
+                },
+                {
+                  "type": 1,
+                  "string": "read"
+                },
+                {
+                  "type": 1,
+                  "string": "write"
+                },
+                {
+                  "type": 1,
+                  "string": "execute"
+                }
+              ],
+              "mapValue": [
+                {
+                  "type": 1,
+                  "string": "__voxeloPushConversion"
+                },
+                {
+                  "type": 8,
+                  "boolean": true
+                },
+                {
+                  "type": 8,
+                  "boolean": true
+                },
+                {
+                  "type": 8,
+                  "boolean": true
+                }
+              ]
+            },
+            {
+              "type": 3,
+              "mapKey": [
+                {
+                  "type": 1,
+                  "string": "key"
+                },
+                {
+                  "type": 1,
+                  "string": "read"
+                },
+                {
+                  "type": 1,
+                  "string": "write"
+                },
+                {
+                  "type": 1,
+                  "string": "execute"
+                }
+              ],
+              "mapValue": [
+                {
+                  "type": 1,
+                  "string": "__voxeloGtmConsent"
+                },
+                {
+                  "type": 8,
+                  "boolean": true
+                },
+                {
+                  "type": 8,
+                  "boolean": true
+                },
+                {
+                  "type": 8,
+                  "boolean": false
+                }
+              ]
+            }
+            ]
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "access_consent",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "consentTypes",
+          "value": {
+            "type": 2,
+            "listItem": [
+            {
+              "type": 3,
+              "mapKey": [
+                {
+                  "type": 1,
+                  "string": "consentType"
+                },
+                {
+                  "type": 1,
+                  "string": "read"
+                },
+                {
+                  "type": 1,
+                  "string": "write"
+                }
+              ],
+              "mapValue": [
+                {
+                  "type": 1,
+                  "string": "ad_storage"
+                },
+                {
+                  "type": 8,
+                  "boolean": true
+                },
+                {
+                  "type": 8,
+                  "boolean": false
+                }
+              ]
+            },
+            {
+              "type": 3,
+              "mapKey": [
+                {
+                  "type": 1,
+                  "string": "consentType"
+                },
+                {
+                  "type": 1,
+                  "string": "read"
+                },
+                {
+                  "type": 1,
+                  "string": "write"
+                }
+              ],
+              "mapValue": [
+                {
+                  "type": 1,
+                  "string": "analytics_storage"
+                },
+                {
+                  "type": 8,
+                  "boolean": true
+                },
+                {
+                  "type": 8,
+                  "boolean": false
+                }
+              ]
+            }
             ]
           }
         }
@@ -287,6 +422,8 @@ scenarios:
     mock('copyFromWindow', () => undefined);
     mock('createQueue', () => () => {});
     mock('getType', () => 'undefined');
+    mock('isConsentGranted', () => false);
+    mock('addConsentListener', () => {});
     let injected;
     mock('injectScript', (url, onSuccess) => {
       injected = url;
@@ -295,6 +432,29 @@ scenarios:
     runCode(mockData);
     assertThat(injected).isEqualTo('https://app.voxelo.ai/ea/measurement-core.js');
 
+- name: Native consent grant and revoke update the bridge without reinjection
+  code: |
+    let granted = false;
+    let notify;
+    let state;
+    let injections = 0;
+    mock('isConsentGranted', () => granted);
+    mock('addConsentListener', (type, listener) => { notify = listener; });
+    mock('setInWindow', (key, value) => { if (key === '__voxeloGtmConsent') state = value; });
+    mock('copyFromWindow', () => undefined);
+    mock('createQueue', () => () => {});
+    mock('getType', () => 'undefined');
+    mock('injectScript', () => { injections++; });
+    runCode({measurementId: 'vxm_live_example0001'});
+    assertThat(state).isEqualTo('denied');
+    granted = true;
+    notify();
+    assertThat(state).isEqualTo('granted');
+    granted = false;
+    notify();
+    assertThat(state).isEqualTo('denied');
+    assertThat(injections).isEqualTo(1);
+
 
 ___NOTES___
 
@@ -302,7 +462,7 @@ Voxelo Measurement core for the Google Tag Manager Community Gallery.
 
 Setup:
 1. Add this tag from the Community Gallery.
-2. Enter your Measurement ID from Voxelo Convert settings (vxm_live_...).
+2. Enter your Measurement ID from Voxelo Convert settings (vxm_live_…).
 3. Trigger: All Pages.
 4. Keep your existing GA4 / ecommerce tags pushing purchase and add_to_cart to
    dataLayer. No second Voxelo helper tag is required.

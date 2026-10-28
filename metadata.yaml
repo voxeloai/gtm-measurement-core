@@ -1,6 +1,12 @@
 homepage: "https://voxelo.ai"
 documentation: "https://github.com/voxeloai/gtm-measurement-core#readme"
 versions:
+  - sha: 40b5b4ff5442ce5d5fadfdc917cc13b2ac59e431
+    changeNotes: |
+      Honor Google Consent Mode natively (ad_storage and analytics_storage).
+      Publish effective grant/deny on __voxeloGtmConsent for the Measurement core.
+      Both storages must be granted; document Consent Initialization setup.
+      Allow underscores and hyphens in Measurement IDs.
   - sha: 4429c6a67e3b435a5f881186a25657ce70b7a6a4
     changeNotes: |
       Initial release of the Voxelo Measurement core template.
