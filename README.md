@@ -41,15 +41,22 @@ not measure until it is.
 
 For clearer reporting, mark how each Twin is shown:
 
-| Attribute | Value | Meaning |
-|-----------|--------|---------|
-| `data-voxelo-placement` | `embedded` | Twin is in the page layout |
-| `data-voxelo-placement` | `pop-up` | Twin opens on click / modal |
+| Attribute               | Value      | Meaning                     |
+| ----------------------- | ---------- | --------------------------- |
+| `data-voxelo-placement` | `embedded` | Twin is in the page layout  |
+| `data-voxelo-placement` | `pop-up`   | Twin opens on click / modal |
 
 Put the attribute on the viewer iframe (or the control that opens a pop-up).
 Undeclared installs still measure; rates are not split by placement.
 
 ## Consent
+
+Configure your CMP on **Consent Initialization** before this All Pages tag.
+Initialize both storage types to denied where consent is required. Google
+considers unset native consent granted; do not enable the GTM **Always fire**
+consent override. The template reads both native consent types and listens for
+grant/revoke changes through a dedicated `__voxeloGtmConsent` bridge, separate
+from the merchant CMP hook. The core polls this bridge.
 
 With this Gallery install, the Measurement core follows **Google Consent Mode**
 storage signals (`ad_storage` / `analytics_storage`). Until consent is granted,
